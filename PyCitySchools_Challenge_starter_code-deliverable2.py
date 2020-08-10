@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[63]:
 
 
 # Dependencies and Setup
 import pandas as pd
 
 
-# In[2]:
+# In[64]:
 
 
 # File to load
@@ -16,13 +16,13 @@ schools_data_to_load = r"C:\Users\films\Resources\School_District_Analysis\schoo
 students_data_to_load = r"C:\Users\films\Resources\School_District_Analysis\students_complete.csv"
 
 
-# In[3]:
+# In[65]:
 
 
 df = pd.read_csv
 
 
-# In[4]:
+# In[66]:
 
 
 # Read the student data file and store into a Pandas DataFrame
@@ -42,9 +42,7 @@ for word in prefixes_suffixes:
 student_data_df.head(10)
 
 
-# ## Replace the 9th grade reading and math scores at Thomas High School with NaN. 
-
-# In[5]:
+# In[67]:
 
 
 # Install numpy using conda install numpy or pip install numpy. 
@@ -52,45 +50,146 @@ student_data_df.head(10)
 import numpy as np
 
 
-# In[6]:
+# In[68]:
 
 
 import pandas as pd
 
 
-# In[7]:
+# In[69]:
 
 
-# Step 2. Use the loc method on the student_data_df to select all the reading scores from the 9th grade at Thomas High School and replace them with NaN.
-student_data_df.loc[(student_data_df["school_name"] == "Thomas High School") & (student_data_df["grade"] == "9th"),
-                    ("reading_scores")] = float("NaN")
+# Determiine if there are any missing values in the school data
+school_data_df.count()
 
 
-# In[8]:
+# In[70]:
 
 
-# Step 3. Refactor the code in Step 2 to replace the math scores with NaN
-student_data_df.loc[(student_data_df["school_name"] == "Thomas High School") & (student_data_df["grade"] == "9th"),
-                                    ("reading_scores")]= float("NaN")
+# Determine if there any missing values in the student data.
+student_data_df.count()
 
 
-# In[9]:
+# In[71]:
 
 
-#  Step 4. Check the student data for NaN's. 
-print (student_data_df.loc[(student_data_df["school_name"] == "Thomas High School") & (student_data_df["grade"] == "9th")])
+# Determine if there are any missing values in the school data
+school_data_df.isnull()
+
+
+# In[72]:
+
+
+# Determine if there are any missing values in the student data.
+student_data_df.isnull().sum()
+
+
+# In[73]:
+
+
+# Add the Pandas dependency
+import pandas as pd
+
+
+# In[74]:
+
+
+# Files to load
+file_to_load = r"C:\Users\films\Resources\School_District_Analysis\missing_grades.csv"
+
+
+# In[75]:
+
+
+# Read the CSV into a DataFrame
+missing_grade_df = pd.read_csv(file_to_load)
+missing_grade_df
+
+
+# In[76]:
+
+
+# Determine data types for the school Data Frame
+school_data_df.dtypes
+
+
+# In[77]:
+
+
+# Determine data type of the budget column in the school DataFrame
+school_data_df["budget"].dtype
+
+
+# In[78]:
+
+
+# Determine data type for the student DataFrame
+student_data_df.dtypes
+
+
+# In[93]:
+
+
+# Combine the data into a single dataset
+school_data_complete_df = pd.merge(student_data_df, school_data_df, on = ["school_name", "school_name"])
+school_data_complete_df.head()
+
+
+# In[99]:
+
+
+# Get the total number of students
+student_count = school_data_complete_df.count()
+student_count
+
+
+# In[108]:
+
+
+# Calculate the Total Budget.
+total_budget = school_data_df["budget"].sum()
+total_budget
+
+
+# In[109]:
+
+
+# Calculate the average reading score
+average_reading_score = school_data_complete_df["reading_score"].mean()
+average_reading_score
+
+
+# In[110]:
+
+
+# Calculate the average math score
+average_math_score = school_data_complete_df["math_score"].mean()
+average_math_score
+
+
+# In[112]:
+
+
+district_summary_df["Total Budget"]
+
+
+# In[111]:
+
+
+# Format the columns
+district_summary_df["Average Math Score"] = district_summary_df["Average Math Score"].map("{:.1f}".format)
+
+district_summary_df["Average Reading Score"] = district_summary_df["Average Reading Score"].map("{:.1f}".format)
+
+district_summary_df["% Passing Math"] = district_summary_df["% Passing Math"].map("{:.0f}".format)
+
+district_summary_df["% Passing Reading"] = district_summary_df["% Passing Reading"].map("{:0f}".format)
+
+district_summary_df["% Overall Passing"] = district_summary_df["% Overall Passing"].map("{:.0f}".format)
 
 
 # In[11]:
 
 
 student_data_df.to_csv("schools_complete_output.csv", index=False)
-
-
-# In[ ]:
-
-
-# Read the school data file and store it in a Pandas DataFrame
-school_data_df = pd.read_csv(school_data_to_load)
-school
 
