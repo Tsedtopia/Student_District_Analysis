@@ -12,4 +12,6 @@ Before wrangling through the data, and merging data sets we had to take a deeper
 
 Analysis & Challenges:
 
+The new data shows that Thomas High School
+
 In order to add to the correlation of budget to passing test score it would have been useful to have information on each school testing preparation data. 
